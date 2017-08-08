@@ -1,0 +1,26 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Toggle activate-killer-instinct-mode",
+        "command": "activate-killer-instinct-mode:toggle"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "activate-killer-instinct-mode",
+          "submenu": [
+            {
+              "label": "Toggle",
+              "command": "activate-killer-instinct-mode:toggle"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

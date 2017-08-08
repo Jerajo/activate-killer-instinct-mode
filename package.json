@@ -1,0 +1,16 @@
+{
+	"name": "activate-killer-instinct-mode",
+	"version": "0.0.1",
+	"description": "A short description of your package",
+	"keywords": [],
+	"license": "MIT",
+	"main": "./lib/activate-killer-instinct-mode",
+	"repository": {},
+	"dependencies": {},
+	"engines": {
+		"atom": ">=1.0.0 <2.0.0"
+	},
+	"activationCommands": {
+		"atom-workspace": "activate-killer-instinct-mode:toggle"
+	}
+}
