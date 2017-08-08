@@ -1,14 +1,38 @@
 {
 	"name": "activate-killer-instinct-mode",
 	"version": "0.0.1",
-	"description": "A short description of your package",
-	"keywords": [],
+	"description": "A plugin for activate power mode package that plays killer instinct exclamations.",
+	"keywords": [
+		"activate",
+		"power",
+		"mode",
+		"killer",
+		"instinct",
+		"audio",
+		"exclamations"
+	],
 	"license": "MIT",
+	"author": "Jesse R. Jose <jessejose@outlook.es> (https://github.com/Jerajo)",
 	"main": "./lib/activate-killer-instinct-mode",
-	"repository": {},
-	"dependencies": {},
+	"repository": {
+		"url":
+		"https://github.com/Jerajo/activate-killer-instinct-mode"
+	},
+	"dependencies": {
+		"lodash.debounce": "^4.0.8"
+	},
 	"engines": {
-		"atom": ">=1.0.0 <2.0.0"
+		"atom": ">=1.17.0 <2.0.0"
+	},
+	"package-deps": [
+		"activate-power-mode"
+	],
+	"consumedServices": {
+		"activate-power-mode": {
+			"versions": {
+				"^1.0.0": "consumeActivatePowerModeServiceV1"
+			}
+		}
 	},
 	"activationCommands": {
 		"atom-workspace": "activate-killer-instinct-mode:toggle"
