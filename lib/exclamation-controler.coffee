@@ -1,10 +1,10 @@
-#musicPlayer = require "./music-player"
+exclamation = require "./play-exclamation"
 
 module.exports =
 
   active: false
   api: null
-  #musicPlayer: musicPlayer
+  exclamation: exclamation
   isCombomode: false
 
   enable: (api) ->
@@ -14,7 +14,7 @@ module.exports =
 
   disable: ->
     console.log "Se invoca: (destroid)"
-    #@musicPlayer.disable()
+    @exclamation.disable()
     @active = false
     @api = null
 
