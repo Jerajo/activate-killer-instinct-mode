@@ -14,48 +14,25 @@ module.exports =
         ]
         order: 1
 
-      multiplier:
-        title: "Combo Mode - Multiplier"
-        description: "Turn the multiplier on/off. (multiplier = streak * current level)."
+      breakCombo:
+        title: "Combo Mode - Break Combo On Delete"
+        description: "Reset the current streak by pressing backspace."
         type: "boolean"
-        default: false
-        order: 2
+        default: true
 
-      exclamationEvery:
-        title: "Combo Mode - Exclamation Every"
-        description: 'Shows an exclamation every streak count.'
-        type: "integer"
-        default: 10
-        minimum: 1
-        maximum: 100
-
-      texts:
-        title: "Combo Mode - Custom Exclamation"
-        description: "Custom exclamations to show (randomized)."
-        type: "array"
-        default: ["Super!", "Radical!", "Fantastic!", "Great!", "OMG", "Whoah!", ":O", "Nice!", "Splendid!", "Wild!", "Grand!", "Impressive!", "Stupendous!", "Extreme!", "Awesome!"]
-        order: 3
-
-      exclamationVolume:
+      volume:
         title: "Combo Mode - Exclamation Volume"
-        description: "Volume of the exclamation audio."
+        description: "Volume for exclamation sounds."
         type: "integer"
         default: 50
         minimum: 0
         maximum: 100
-        order: 3
+        order: 2
 
-  customExclamations:
+  custom:
     type: "object"
     properties:
-      enabled:
-        title: "Custom Exclamations - Enabled"
-        description: 'To apply this settings "Combo Mode - Style" has to be Custom'
-        type: "boolean"
-        default: false
-        order: 1
-
-      exclamationType:
+      type:
         title: "Custom Exclamations - Type"
         description: "Types of exclamations to be displayed."
         type: "string"
@@ -65,87 +42,64 @@ module.exports =
           {value: 'onlyAudio', description: 'Only Audio'}
           {value: 'both', description: 'Both'}
         ]
+        order: 1
+
+      display:
+        title: "Custom Exclamations - Display"
+        description: "Set when exclamations will display."
+        type: "string"
+        default: "endStreak"
+        enum: [
+          {value: 'duringStreak', description: 'During Streak'}
+          {value: 'endStreak', description: 'End Streak'}
+        ]
         order: 2
 
-      audioExclamations:
+      audioFiles:
         type: "object"
         properties:
-          pathToExclamations:
-            title: "Audio Exclamations - Path To Exclamations"
+          path:
+            title: "Custom Audio Files - Path To Exclamations"
             description: 'Path to exclamations audio files (Plays ramdomised).'
             type: "string"
             default: "../sounds/"
             order: 1
 
-          exclamationOnDelete:
-            title: "Audio Exclamations - Combo Breaker"
-            description: 'Path to combo breaker audio file.'
+          onDelete:
+            title: "Custom Audio Files - Combo Breaker"
+            description: 'File inside of path to exclamation to be played when combo breaks.'
             type: "string"
             default: "Combo Breaker.wav"
             order: 2
 
-          exclamationOnNextLevel:
-            title: "Audio Exclamations - Next Level"
+          onNextLevel:
+            title: "Custom Audio Files - Next Level"
             description: 'Path to next level audio file.'
             type: "string"
             default: "Level Up.wav"
             order: 3
 
-          exclamationOnNewMas:
-            title: "Audio Exclamations - New Max"
+          onNewMax:
+            title: "Custom Audio Files - New Max"
             description: 'Path to new max audio files.'
             type: "string"
             default: "Maxximun Power.wav"
             order: 4
 
-          superExclamation:
-            title: "Super Exclamation - Path"
-            description: 'Path to super exclamation audio file.'
-            type: "string"
-            default: "Yes oh my God.wav"
-            order: 2
-
-
-  MusicPlayer:
+  superExclamation:
     type: "object"
     properties:
-      enabled:
-        title: "Music Player - Mute Enabled"
+      path:
+        title: "Super Exclamation - Path"
+        description: 'Path to super exclamation audio file.'
+        type: "string"
+        default: "Yes oh my God.wav"
+        order: 5
+
+      mute:
+        title: "Super Exclamation - Mute Enabled"
         description: 'Mute the music while playing the exclamations.\n
         Note: This require Activate-Background-Music package installed\n
         and the "Exclamations Type" needs to be "Only Audio" or "Both".'
         type: "boolean"
         default: true
-        order: 1
-
-      chooseTheExclamations:
-        type: "object"
-        properties:
-          duringStreak:
-            title: "Music Mute -  DuringStreak"
-            description: 'Mute the music while Normal Exclamations playing.
-            (killer Instinct, Custom)'
-            type: "boolean"
-            default: true
-            order: 1
-
-          nextLevel:
-            title: "Music Mute -  NextLevel"
-            description: 'Mute the music while Next Level Exclamation is playing.'
-            type: "boolean"
-            default: true
-            order: 2
-
-          newMax:
-            title: "Music Mute -  EndStreak"
-            description: 'Mute the music while New Max Exclamation is playing.'
-            type: "boolean"
-            default: true
-            order: 3
-
-          superExclamation:
-            title: "Music Mute - Super Exclamation"
-            description: 'Mute the music while the Super Exclamation is playing.'
-            type: "boolean"
-            default: true
-            order: 4
