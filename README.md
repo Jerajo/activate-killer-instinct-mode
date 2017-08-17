@@ -1,4 +1,4 @@
-# [Activate Killer Instinct Mode Beta](https://github.com/Jerajo/activate-killer-instinct-mode)
+# [Activate Killer Instinct Mode](https://github.com/Jerajo/activate-killer-instinct-mode)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fBr48lHVYJE?ecver=1" frameborder="0" allowfullscreen></iframe>
 
