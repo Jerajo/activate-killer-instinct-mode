@@ -67,31 +67,31 @@ module.exports =
 
           onDelete:
             title: "Custom Audio Files - Combo Breaker"
-            description: 'File inside of path to exclamation to be played when combo breaks.'
+            description: 'File inside of path to exclamations to be played when combo breaks (leave it black to disable).'
             type: "string"
-            default: "Combo Breaker.wav"
+            default: ""
             order: 2
 
           onNextLevel:
             title: "Custom Audio Files - Next Level"
-            description: 'Path to next level audio file.'
+            description: 'File inside of path to exclamations to be played when level up (leave in black to disable).'
             type: "string"
-            default: "Level Up.wav"
+            default: ""
             order: 3
 
           onNewMax:
             title: "Custom Audio Files - New Max"
-            description: 'Path to new max audio files.'
+            description: 'File inside of path to exclamations to be played when reach a new max (leave in black to disable).'
             type: "string"
-            default: "Maximum Combo.wav"
+            default: ""
             order: 4
 
   superExclamation:
     type: "object"
     properties:
       lapse:
-        title: "Super Exclamation - Lapse"
-        description: "Lapse in streaks to display the super exclamation (left in 0 to desable)."
+        title: "Super Exclamation - play Lapse"
+        description: "Lapse in streaks to display the super exclamation (leave in 0 to desable)."
         type: "integer"
         default: 1000
         minimum: 0
@@ -100,15 +100,15 @@ module.exports =
 
       path:
         title: "Super Exclamation - Path"
-        description: 'Path to super exclamation audio file.'
+        description: 'File inside of path to exclamations to be played when current streak reaches the play lapse.'
         type: "string"
         default: "Yes oh my God.wav"
         order: 2
 
       mute:
         title: "Super Exclamation - Mute Enabled"
-        description: 'Mute the music while playing the exclamations.\n
-        Note: This require Activate-Background-Music package installed\n
+        description: 'Mute the music while playing the exclamations.
+        Note: This require Activate-Background-Music package installed
         and the "Exclamations Type" needs to be "Only Audio" or "Both".'
         type: "boolean"
         default: true
