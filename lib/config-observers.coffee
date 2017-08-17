@@ -15,6 +15,7 @@ module.exports =
   multiplier: ""
   mute: true
   setup: false
+  exclamations: null
 
   setup: ->
     @typesObserver?.dispose()
@@ -36,6 +37,11 @@ module.exports =
       else @path = value
       if @setup and @style is "killerInstinct" and value != "../sounds/"
         @setConfig("comboMode.style", "custom")
+
+      @exclamations = if fs.existsSync(@path) then @getAudioFiles() else null
+      if @exclamations is null
+        console.error  "Error!: The folder doesn't exist or doesn't contain audio files!."
+        @setConfig("custom.audioFiles.path","../sounds/")
 
     @styleObserver?.dispose()
     @styleObserver = atom.config.observe 'activate-killer-instinct-mode.comboMode.style', (value) =>
@@ -66,27 +72,35 @@ module.exports =
 
     @onDeleteObserver?.dispose()
     @onDeleteObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onDelete', (value) =>
-      if @path is "../sounds/"
-        @onDelete = path.join(__dirname, value)
-      else @onDelete = value
+      for file of @exclamations
+        exits = if value is @exclamations[file] then true else false
+        break if exits
+      console.error "File doesn't exits" if not exits and value != ""
+      @onDelete = if value != "" and exits then @path + value else null
 
     @onNextLevelObserver?.dispose()
     @onNextLevelObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onNextLevel', (value) =>
-      if @path is "../sounds/"
-        @onNextLevel = path.join(__dirname, value)
-      else @onNextLevel = value
+      for file of @exclamations
+        exits = if value is @exclamations[file] then true else false
+        break if exits
+      console.error "File doesn't exits" if not exits and value != ""
+      @onNextLevel = if value != "" and exits then @path + value else null
 
     @onNewMaxObserver?.dispose()
     @onNewMaxObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onNewMax', (value) =>
-      if @path is "../sounds/"
-        @onNewMax = path.join(__dirname, value)
-      else @onNewMax = value
+      for file of @exclamations
+        exits = if value is @exclamations[file] then true else false
+        break if exits
+      console.error "File doesn't exits" if not exits and value != ""
+      @onNewMax = if value != "" and exits then @path + value else null
 
     @superExclamationObserver?.dispose()
     @superExclamationObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.path', (value) =>
-      if @path is "../sounds/"
-        @superExclamation = path.join(__dirname, value)
-      else @superExclamation = value
+      for file of @exclamations
+        exits = if value is @exclamations[file] then true else false
+        break if exits
+      console.error "File doesn't exits" if not exits and value != ""
+      @superExclamation = if value != "" and exits then @path + value else null
 
     @lapseObserver?.dispose()
     @lapseObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.lapse', (value) =>
@@ -110,8 +124,24 @@ module.exports =
     @styleObserver?.dispose()
     @typesObserver?.dispose()
     @lapseObserver?.dispose()
-    @pathObserver?.dispose()    
+    @pathObserver?.dispose()
     @muteObserver?.dispose()
+
+  getAudioFiles: ->
+    allFiles = fs.readdirSync(@path)
+    file = 0
+    while(allFiles[file])
+      fileName = allFiles[file++]
+      fileExtencion = fileName.split('.').pop()
+      continue if(fileExtencion is "mp3") or (fileExtencion is "MP3")
+      continue if(fileExtencion is "wav") or (fileExtencion is "WAV")
+      continue if(fileExtencion is "3gp") or (fileExtencion is "3GP")
+      continue if(fileExtencion is "m4a") or (fileExtencion is "M4A")
+      continue if(fileExtencion is "webm") or (fileExtencion is "WEBM")
+      allFiles.splice(--file, 1)
+      break if file is allFiles.length
+
+    return if (allFiles.length > 0) then allFiles else null
 
   setConfig: (config, value) ->
     atom.config.set "activate-killer-instinct-mode.#{config}", value
