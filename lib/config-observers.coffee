@@ -1,22 +1,26 @@
+path = require 'path'
+
 module.exports =
   style: ""
   breakCombo: false
   volume: 0
-  type: ""
+  types: ""
   display: ""
   path: ""
   onDelete: ""
   onNextLevel: ""
   onNewMax: ""
   superExclamation: ""
+  lapse: 0
+  multiplier: ""
   mute: true
   setup: false
 
   setup: ->
-    @typeObserver?.dispose()
-    @typeObserver = atom.config.observe 'activate-killer-instinct-mode.custom.type', (value) =>
-      @type = value
-      if @setup and @style is "killerInstinct" and @type != "both"
+    @typesObserver?.dispose()
+    @typesObserver = atom.config.observe 'activate-killer-instinct-mode.custom.types', (value) =>
+      @types = value
+      if @setup and @style is "killerInstinct" and @types != "both"
         @setConfig("comboMode.style", "custom")
 
     @displayObserver?.dispose()
@@ -27,8 +31,10 @@ module.exports =
 
     @pathObserver?.dispose()
     @pathObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.path', (value) =>
-      @path = value
-      if @setup and @style is "killerInstinct" and @path != "../sounds/"
+      if value is "../sounds/"
+        @path = path.join(__dirname, value)
+      else @path = value
+      if @setup and @style is "killerInstinct" and value != "../sounds/"
         @setConfig("comboMode.style", "custom")
 
     @styleObserver?.dispose()
@@ -36,19 +42,23 @@ module.exports =
       @style = value
       if @setup and @style is "killerInstinct"
         @setConfig("comboMode.breakCombo", true) if not @breakCombo
-        @setConfig("custom.type", "both") if @type != "both"
-        @setConfig("custom.display", "endStreak") if @type != "endStreak"
+        @setConfig("custom.types", "both") if @types != "both"
+        @setConfig("custom.display", "endStreak") if @display != "endStreak"
         @setConfig("custom.audioFiles.path", "../sounds/") if @path != "../sounds/"
         if @onDelete != "Combo Breaker.wav"
           @setConfig("custom.audioFiles.onDelete", "Combo Breaker.wav")
         if @onNextLevel != "Level Up.wav"
           @setConfig("custom.audioFiles.onNextLevel", "Level Up.wav")
-        if @onNewMax != "Maxximun Power.wav"
-          @setConfig("custom.audioFiles.onNewMax", "Maxximun Power.wav")
+        if @onNewMax != "Maximum Combo.wav"
+          @setConfig("custom.audioFiles.onNewMax", "Maximum Combo.wav")
         if @superExclamation != "Yes oh my God.wav"
           @setConfig("superExclamation.path", "Yes oh my God.wav")
         if atom.packages.isPackageActive("activate-background-music") and not @mute
           @setConfig("superExclamation.mute", true)
+
+    @multiplierObserver?.dispose()
+    @multiplierObserver = atom.config.observe "activate-power-mode.comboMode.multiplier", (value) =>
+      @multiplier = value
 
     @volumeObserver?.dispose()
     @volumeObserver = atom.config.observe 'activate-killer-instinct-mode.comboMode.volume', (value) =>
@@ -56,19 +66,31 @@ module.exports =
 
     @onDeleteObserver?.dispose()
     @onDeleteObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onDelete', (value) =>
-      @onDelete = value
+      if @path is "../sounds/"
+        @onDelete = path.join(__dirname, value)
+      else @onDelete = value
 
     @onNextLevelObserver?.dispose()
     @onNextLevelObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onNextLevel', (value) =>
-      @onNextLevel = value
+      if @path is "../sounds/"
+        @onNextLevel = path.join(__dirname, value)
+      else @onNextLevel = value
 
     @onNewMaxObserver?.dispose()
     @onNewMaxObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onNewMax', (value) =>
-      @onNewMax = value
+      if @path is "../sounds/"
+        @onNewMax = path.join(__dirname, value)
+      else @onNewMax = value
 
     @superExclamationObserver?.dispose()
     @superExclamationObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.path', (value) =>
-      @superExclamation = value
+      if @path is "../sounds/"
+        @superExclamation = path.join(__dirname, value)
+      else @superExclamation = value
+
+    @lapseObserver?.dispose()
+    @lapseObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.lapse', (value) =>
+      @lapse = value
 
     @muteObserver?.dispose()
     @muteObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.mute', (value) =>
@@ -76,17 +98,19 @@ module.exports =
 
     @setup = true
 
-  destroy: ->
+  desable: ->
     @setup = false
     @superExclamationObserver?.dispose()
     @onNextLevelObserver?.dispose()
+    @multiplierObserver?.dispose()
     @onDeleteObserver?.dispose()
     @onNewMaxObserver?.dispose()
     @displayObserver?.dispose()
     @volumeObserver?.dispose()
     @styleObserver?.dispose()
-    @typeObserver?.dispose()
-    @pathObserver?.dispose()
+    @typesObserver?.dispose()
+    @lapseObserver?.dispose()
+    @pathObserver?.dispose()    
     @muteObserver?.dispose()
 
   setConfig: (config, value) ->
