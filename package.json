@@ -18,6 +18,7 @@
     "url": "https://github.com/Jerajo/activate-killer-instinct-mode"
   },
   "dependencies": {
+    "atom-package-deps": "^4.6.0",
     "lodash.debounce": "^4.0.8"
   },
   "engines": {

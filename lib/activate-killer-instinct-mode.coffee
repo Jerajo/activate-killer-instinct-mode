@@ -17,9 +17,11 @@ module.exports = activateKillerInstinctMode =
     @subscriptions.add atom.commands.add "atom-workspace",
       "activate-killer-instinct-mode:toggle": => @toggle()
 
-    #require('atom-package-deps').install('activate-killer-instinct-mode')
+    require('atom-package-deps').install('activate-killer-instinct-mode')
 
   consumeActivatePowerModeServiceV1: (service) ->
+    console.log "Este es el servise"
+    console.log service
     service.registerPlugin('activateKillerInstinctMode', @exclamationControler)
 
   deactivate: ->
