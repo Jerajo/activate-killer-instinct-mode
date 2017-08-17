@@ -1,7 +1,7 @@
 {
 	"name": "activate-killer-instinct-mode",
 	"version": "0.1.0",
-	"description": "A plugin for activate power mode package that plays killer instinct exclamations.",
+	"description": "A plugin for activate power mode that plays killer instinct exclamations.",
 	"keywords": [
 		"activate",
 		"power",
@@ -32,8 +32,5 @@
 				"^1.0.0": "consumeActivatePowerModeServiceV1"
 			}
 		}
-	},
-	"activationCommands": {
-		"atom-workspace": "activate-killer-instinct-mode:toggle"
 	}
 }
