@@ -20,7 +20,7 @@ module.exports =
   disable: ->
     console.log "Se invoca: (destroid)"
     @configObserver.desable()
-    #@exclamation.disable()
+    @exclamation.disable()
     @active = false
 
   setup: ->
@@ -34,40 +34,41 @@ module.exports =
       @setConfig "activate-power-mode.comboMode.multiplier", false
 
   onInput: (cursor, screenPosition, input, data) ->
-    @currentStreak = @combo.getCurrentStreak()
-    play = false
-    mod = @currentStreak % @configObserver.lapse
-    if @configObserver.multiplier
-      currentLevel = @combo.getLevel()
-      n = currentLevel + 1
-      play = true if (@currentStreak - n < @currentStreak - mod < @currentStreak)
-    if mod is 0 or play
-     exclamation = @exclamation.play(@configObserver.path + @configObserver.superExclamation, @configObserver.style)
-     @combo.exclame(word = exclamation, type = null)
-    console.log "Se invoca: (onInput)"
+    if @active
+      @currentStreak = @combo.getCurrentStreak()
+      play = false
+      mod = @currentStreak % @configObserver.lapse
+      if @configObserver.multiplier
+        currentLevel = @combo.getLevel()
+        n = currentLevel + 1
+        play = true if (@currentStreak - n < @currentStreak - mod < @currentStreak)
+      if mod is 0 or play
+       exclamation = @exclamation.play(@configObserver.superExclamation, @configObserver.style)
+       @combo.exclame(word = exclamation, type = null)
+      console.log "Se invoca: (onInput)"
 
   onComboLevelChange: (newLvl, oldLvl) ->
-    console.log "Se invoca: (onComboLevelChange)"
-    if @active
-      @exclamation.play(@configObserver.path + @configObserver.onNextLevel, @configObserver.style)
+    if @active and @configObserver.types != "onlyText" and @configObserver.onNextLevel != null
+      @exclamation.play(@configObserver.onNextLevel, @configObserver.style)
+      console.log "Se invoca: (onComboLevelChange)"
 
   onComboEndStreak: ->
-    console.log "Se invoca: (onComboEndStreak)"
     if @active and @currentStreak >= 3 and @configObserver.display is "endStreak"
       if @configObserver.types != "onlyText"
         @exclamation.play(@configObserver.path, @configObserver.style, @currentStreak)
       @currentStreak = 0
+      console.log "Se invoca: (onComboEndStreak)"
 
   onComboExclamation: (text) ->
-    console.log "Se invoca: (onComboExclamation)"
-    if @active and @configObserver.display is "duringStreak"
+    if @active and @configObserver.types != "onlyText" and @configObserver.display is "duringStreak"
       @exclamation.play(@configObserver.path, @configObserver.style, 0) if @configObserver.types != "onlyText"
       text = "Holla Jesse"
+      console.log "Se invoca: (onComboExclamation)"
 
   onComboMaxStreak: (maxStreak) ->
-    console.log "Se invoca: (onComboMaxStreak)"
-    if @active and @configObserver.types != "onlyText"
-      @exclamation.play(@configObserver.path + @configObserver.onNewMax, @configObserver.style)
+    if @active and @configObserver.types != "onlyText" and @configObserver.onNewMax != null
+      @exclamation.play(@configObserver.onNewMax, @configObserver.style)
+      console.log "Se invoca: (onComboMaxStreak)"
 
   getConfig: (config) ->
     atom.config.get "activate-killer-instinct-mode.#{config}"
