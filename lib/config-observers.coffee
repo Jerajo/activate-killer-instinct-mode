@@ -14,7 +14,7 @@ module.exports =
   lapse: 0
   multiplier: ""
   mute: true
-  setup: false
+  isSetup: false
   exclamations: null
 
   setup: ->
@@ -114,10 +114,10 @@ module.exports =
     @muteObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.mute', (value) =>
       @mute = value
 
-    @setup = true
+    @isSetup = true
 
-  desable: ->
-    @setup = false
+  disable: ->
+    @isSetup = false
     @superExclamationObserver?.dispose()
     @onNextLevelObserver?.dispose()
     @multiplierObserver?.dispose()

@@ -33,7 +33,7 @@ module.exports = activateKillerInstinctMode =
   enable: ->
     console.log "Estoy activo. XD"
     @active = true
-    @exclamationControler.enable()
+    @exclamationControler.setup()
 
   disable: ->
     console.log "Estoy inactivo. XP"
