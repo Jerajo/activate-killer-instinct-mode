@@ -19,7 +19,7 @@ module.exports =
     @path = path
     @audioFiles = @getAudioFiles()
 
-  desable: ->
+  disable: ->
     @volumeObserver?.dispose()
     @isPlaying = false
     @audioFiles = null
@@ -30,16 +30,12 @@ module.exports =
   play: (path = "", style, combo = -1) ->
     ispath = if path.length - 1 == path.lastIndexOf('\\') then true else false
     if not ispath
-      console.log "se reconose como no path: " + path
       start = path.lastIndexOf('\\') + 1;
       end = path.lastIndexOf('.') - start;
       @exclamation = path.substr(start, end);
       @sound = new Audio(path)
     else
       @setup(path) if @path != path
-      console.log "El path es: " + @path
-      console.log "El style es: " + style
-      console.log "El streak es: " + combo
       if style is "killerInstinct"
         @exclamation = @killerInstinctExclamation(combo)
         extencion = ".wav"
@@ -49,7 +45,6 @@ module.exports =
         @sound = new Audio(@path + @exclamation)
 
       @exclamation = @exclamation.substr(0, @exclamation.lastIndexOf('.'))
-      console.log "La exclamacion es: " + @exclamation
 
     @sound.volume = @volume
     @isPlaying = true
@@ -93,6 +88,3 @@ module.exports =
     return fileName = ("Killer Combo") if combo > 26 and combo < 30
     return fileName = ("Ultra Combo") if combo >= 30
     null
-
-  getConfig: (config) ->
-    atom.config.get "activate-power-mode.comboMode.#{config}"
