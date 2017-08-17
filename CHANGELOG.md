@@ -1,11 +1,14 @@
-## 1.0.0 - First Release
-* Every feature added
-* Every bug fixed
+## 0.2.0 - Beta Release
+* new sound added `Maximun Combo.wav`
+* new sound added `Level Up.wav`
+* config Observer finixed
+* config-schema finixed
+* now exclamations can be played
 
-## 0.1.0 - Setup Beta 
+## 0.1.0 - Setup Beta
 * config-schema added
 * sounds added
-* palay-exclamation added
+* play-exclamation added
 * exclamation-controler added
 * package-deps activate-power-mode added
 
