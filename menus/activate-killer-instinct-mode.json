@@ -2,7 +2,7 @@
   "context-menu": {
     "atom-text-editor": [
       {
-        "label": "Toggle activate-killer-instinct-mode",
+        "label": "Toggle Activate Killer Instinct Mode",
         "command": "activate-killer-instinct-mode:toggle"
       }
     ]
@@ -12,7 +12,7 @@
       "label": "Packages",
       "submenu": [
         {
-          "label": "activate-killer-instinct-mode",
+          "label": "Activate Killer Instinct Mode",
           "submenu": [
             {
               "label": "Toggle",
