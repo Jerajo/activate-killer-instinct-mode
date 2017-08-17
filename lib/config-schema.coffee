@@ -32,7 +32,7 @@ module.exports =
   custom:
     type: "object"
     properties:
-      type:
+      types:
         title: "Custom Exclamations - Type"
         description: "Types of exclamations to be displayed."
         type: "string"
@@ -83,18 +83,27 @@ module.exports =
             title: "Custom Audio Files - New Max"
             description: 'Path to new max audio files.'
             type: "string"
-            default: "Maxximun Power.wav"
+            default: "Maximum Combo.wav"
             order: 4
 
   superExclamation:
     type: "object"
     properties:
+      lapse:
+        title: "Super Exclamation - Lapse"
+        description: "Lapse in streaks to display the super exclamation (left in 0 to desable)."
+        type: "integer"
+        default: 1000
+        minimum: 0
+        maximum: 100000
+        order: 1
+
       path:
         title: "Super Exclamation - Path"
         description: 'Path to super exclamation audio file.'
         type: "string"
         default: "Yes oh my God.wav"
-        order: 5
+        order: 2
 
       mute:
         title: "Super Exclamation - Mute Enabled"
@@ -103,3 +112,4 @@ module.exports =
         and the "Exclamations Type" needs to be "Only Audio" or "Both".'
         type: "boolean"
         default: true
+        order: 3
