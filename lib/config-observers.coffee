@@ -38,7 +38,7 @@ module.exports =
       if @setup and @style is "killerInstinct" and value != "../sounds/"
         @setConfig("comboMode.style", "custom")
 
-      @exclamations = if fs.existsSync(@path) then @getAudioFiles() else null
+      @refreshFiles()
       if @exclamations is null
         console.error  "Error!: The folder doesn't exist or doesn't contain audio files!."
         @setConfig("custom.audioFiles.path","../sounds/")
@@ -72,6 +72,7 @@ module.exports =
 
     @onDeleteObserver?.dispose()
     @onDeleteObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onDelete', (value) =>
+      @refreshFiles()
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
         break if exits
@@ -80,6 +81,7 @@ module.exports =
 
     @onNextLevelObserver?.dispose()
     @onNextLevelObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onNextLevel', (value) =>
+      @refreshFiles()
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
         break if exits
@@ -88,6 +90,7 @@ module.exports =
 
     @onNewMaxObserver?.dispose()
     @onNewMaxObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onNewMax', (value) =>
+      @refreshFiles()
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
         break if exits
@@ -96,6 +99,7 @@ module.exports =
 
     @superExclamationObserver?.dispose()
     @superExclamationObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.path', (value) =>
+      @refreshFiles()
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
         break if exits
@@ -126,6 +130,9 @@ module.exports =
     @lapseObserver?.dispose()
     @pathObserver?.dispose()
     @muteObserver?.dispose()
+
+  refreshFiles: ->
+    @exclamations = if fs.existsSync(@path) then @getAudioFiles() else null
 
   getAudioFiles: ->
     allFiles = fs.readdirSync(@path)

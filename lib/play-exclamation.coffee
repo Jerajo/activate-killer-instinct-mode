@@ -27,7 +27,7 @@ module.exports =
     @sound = null
     @path = ""
 
-  play: (path, style, combo = -1) ->
+  play: (path = "", style, combo = -1) ->
     ispath = if path.length - 1 == path.lastIndexOf('\\') then true else false
     if not ispath
       console.log "se reconose como no path: " + path
@@ -62,7 +62,6 @@ module.exports =
     allFiles = fs.readdirSync(@path)
     file = 0
     while(allFiles[file])
-      console.log allFiles[file]
       fileName = allFiles[file++]
       fileExtencion = fileName.split('.').pop()
       continue if(fileExtencion is "mp3") or (fileExtencion is "MP3")
