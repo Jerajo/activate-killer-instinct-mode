@@ -29,14 +29,14 @@ module.exports =
         maximum: 100
         order: 2
 
-  custom:
+  customSettings:
     type: "object"
     properties:
       types:
-        title: "Custom Exclamations - Type"
+        title: "Custom Settings - Type"
         description: "Types of exclamations to be displayed."
         type: "string"
-        default: "onlyText"
+        default: "both"
         enum: [
           {value: 'onlyText', description: 'Only Text'}
           {value: 'onlyAudio', description: 'Only Audio'}
@@ -45,7 +45,7 @@ module.exports =
         order: 1
 
       display:
-        title: "Custom Exclamations - Display"
+        title: "Custom Settings - Display"
         description: "Set when exclamations will display."
         type: "string"
         default: "endStreak"
@@ -55,36 +55,36 @@ module.exports =
         ]
         order: 2
 
-      audioFiles:
-        type: "object"
-        properties:
-          path:
-            title: "Custom Audio Files - Path To Exclamations"
-            description: 'Path to exclamations audio files (Plays ramdomised).'
-            type: "string"
-            default: "../sounds/"
-            order: 1
+  customExclamations:
+    type: "object"
+    properties:
+      path:
+        title: "Custom Exclamations - Path"
+        description: 'Path to exclamations audio files (Plays ramdomised).'
+        type: "string"
+        default: "../sounds/"
+        order: 1
 
-          onDelete:
-            title: "Custom Audio Files - Combo Breaker"
-            description: 'File inside of path to exclamations to be played when combo breaks (leave it black to disable).'
-            type: "string"
-            default: ""
-            order: 2
+      onDelete:
+        title: "Custom Exclamations - Combo Breaker"
+        description: 'File inside of path to exclamations to be played when combo breaks (leave it black to disable).'
+        type: "string"
+        default: ""
+        order: 2
 
-          onNextLevel:
-            title: "Custom Audio Files - Next Level"
-            description: 'File inside of path to exclamations to be played when level up (leave in black to disable).'
-            type: "string"
-            default: ""
-            order: 3
+      onNextLevel:
+        title: "Custom Exclamations - Next Level"
+        description: 'File inside of path to exclamations to be played when level up (leave in black to disable).'
+        type: "string"
+        default: ""
+        order: 3
 
-          onNewMax:
-            title: "Custom Audio Files - New Max"
-            description: 'File inside of path to exclamations to be played when reach a new max (leave in black to disable).'
-            type: "string"
-            default: ""
-            order: 4
+      onNewMax:
+        title: "Custom Exclamations - New Max"
+        description: 'File inside of path to exclamations to be played when reach a new max (leave in black to disable).'
+        type: "string"
+        default: ""
+        order: 4
 
   superExclamation:
     type: "object"

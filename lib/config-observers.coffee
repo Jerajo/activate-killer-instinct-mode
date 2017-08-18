@@ -1,4 +1,5 @@
 path = require 'path'
+fs = require 'fs'
 
 module.exports =
   style: ""
@@ -19,19 +20,19 @@ module.exports =
 
   setup: ->
     @typesObserver?.dispose()
-    @typesObserver = atom.config.observe 'activate-killer-instinct-mode.custom.types', (value) =>
+    @typesObserver = atom.config.observe 'activate-killer-instinct-mode.customSettings.types', (value) =>
       @types = value
       if @setup and @style is "killerInstinct" and @types != "both"
         @setConfig("comboMode.style", "custom")
 
     @displayObserver?.dispose()
-    @displayObserver = atom.config.observe 'activate-killer-instinct-mode.custom.display', (value) =>
+    @displayObserver = atom.config.observe 'activate-killer-instinct-mode.customSettings.display', (value) =>
       @display = value
       if @setup and @style is "killerInstinct" and @display is "duringStreak"
         @setConfig("comboMode.style", "custom")
 
     @pathObserver?.dispose()
-    @pathObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.path', (value) =>
+    @pathObserver = atom.config.observe 'activate-killer-instinct-mode.customExclamations.path', (value) =>
       if value is "../sounds/"
         @path = path.join(__dirname, value)
       else @path = value
@@ -41,22 +42,22 @@ module.exports =
       @refreshFiles()
       if @exclamations is null
         console.error  "Error!: The folder doesn't exist or doesn't contain audio files!."
-        @setConfig("custom.audioFiles.path","../sounds/")
+        @setConfig("customExclamations.path","../sounds/")
 
     @styleObserver?.dispose()
     @styleObserver = atom.config.observe 'activate-killer-instinct-mode.comboMode.style', (value) =>
       @style = value
       if @setup and @style is "killerInstinct"
         @setConfig("comboMode.breakCombo", true) if not @breakCombo
-        @setConfig("custom.types", "both") if @types != "both"
-        @setConfig("custom.display", "endStreak") if @display != "endStreak"
-        @setConfig("custom.audioFiles.path", "../sounds/") if @path != "../sounds/"
+        @setConfig("customExclamations.types", "both") if @types != "both"
+        @setConfig("customExclamations.display", "endStreak") if @display != "endStreak"
+        @setConfig("customExclamations.path", "../sounds/") if @path != "../sounds/"
         if @onDelete != "Combo Breaker.wav"
-          @setConfig("custom.audioFiles.onDelete", "Combo Breaker.wav")
+          @setConfig("customExclamations.onDelete", "Combo Breaker.wav")
         if @onNextLevel != "Level Up.wav"
-          @setConfig("custom.audioFiles.onNextLevel", "Level Up.wav")
+          @setConfig("customExclamations.onNextLevel", "Level Up.wav")
         if @onNewMax != "Maximum Combo.wav"
-          @setConfig("custom.audioFiles.onNewMax", "Maximum Combo.wav")
+          @setConfig("customExclamations.onNewMax", "Maximum Combo.wav")
         if @superExclamation != "Yes oh my God.wav"
           @setConfig("superExclamation.path", "Yes oh my God.wav")
         if atom.packages.isPackageActive("activate-background-music") and not @mute
@@ -71,7 +72,7 @@ module.exports =
       @volume = (value * 0.01)
 
     @onDeleteObserver?.dispose()
-    @onDeleteObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onDelete', (value) =>
+    @onDeleteObserver = atom.config.observe 'activate-killer-instinct-mode.customExclamations.onDelete', (value) =>
       @refreshFiles()
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
@@ -80,7 +81,7 @@ module.exports =
       @onDelete = if value != "" and exits then @path + value else null
 
     @onNextLevelObserver?.dispose()
-    @onNextLevelObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onNextLevel', (value) =>
+    @onNextLevelObserver = atom.config.observe 'activate-killer-instinct-mode.customExclamations.onNextLevel', (value) =>
       @refreshFiles()
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
@@ -89,7 +90,7 @@ module.exports =
       @onNextLevel = if value != "" and exits then @path + value else null
 
     @onNewMaxObserver?.dispose()
-    @onNewMaxObserver = atom.config.observe 'activate-killer-instinct-mode.custom.audioFiles.onNewMax', (value) =>
+    @onNewMaxObserver = atom.config.observe 'activate-killer-instinct-mode.customExclamations.onNewMax', (value) =>
       @refreshFiles()
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
