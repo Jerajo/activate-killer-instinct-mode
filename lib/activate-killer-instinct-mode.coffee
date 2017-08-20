@@ -5,14 +5,13 @@ exclamationControler = require "./exclamation-controler"
 
 module.exports = activateKillerInstinctMode =
 
+  active: false
   config: configSchema
   subscriptions: null
-  active: false
   exclamationControler: exclamationControler
 
   activate: (state) ->
-    console.log "Hola soy tu paquete Activate Killer Instinct Mode. XD"
-    @active = true
+    @active = @isActive()
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add "atom-workspace",
       "activate-killer-instinct-mode:toggle": => @toggle()
@@ -20,24 +19,26 @@ module.exports = activateKillerInstinctMode =
     require('atom-package-deps').install('activate-killer-instinct-mode')
 
   consumeActivatePowerModeServiceV1: (service) ->
-    console.log "Este es el servise"
-    console.log service
     service.registerPlugin('activateKillerInstinctMode', @exclamationControler)
 
   deactivate: ->
-    console.log "Estoy inactivo. XP"
-    @active = false
-    @exclamationControler.disable()
+    @subscriptions?.dispose()
+    @active = false;
 
   toggle: ->
-    if @active then @disable() else @enable()
+    if @isActive() then @disable() else @enable()
 
   enable: ->
     console.log "Estoy activo. XD"
-    @active = true
-    @exclamationControler.setup()
+    @active = @setConfig(true)
 
   disable: ->
     console.log "Estoy inactivo. XP"
-    @active = false
-    @exclamationControler.disable()
+    @active = @setConfig(false)
+
+  isActive: ->
+    atom.config.get "activate-power-mode.plugins.activateKillerInstinctMode"
+
+  setConfig: (value) ->
+    atom.config.set "activate-power-mode.plugins.activateKillerInstinctMode", value
+    value
