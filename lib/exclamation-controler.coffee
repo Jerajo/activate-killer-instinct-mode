@@ -3,6 +3,10 @@ configObserver = require './config-observers'
 
 module.exports =
 
+  title: 'Activate Killer Instinct Mode'
+  description: 'A plugin for activate power mode that plays killer instinct exclamations.'
+  name: "activate-killer-instinct-mode"
+  type: "package"
   active: false
   api: null
   combo: null
@@ -23,7 +27,6 @@ module.exports =
 
   setup: ->
     @active = true
-    console.log @configObserver
     @configObserver.setup()
     @exclamation.enable @configObserver.path
 
@@ -32,7 +35,6 @@ module.exports =
       @setConfig "activate-power-mode.comboMode.multiplier", false
 
   onInput: (cursor, screenPosition, input, data) ->
-    console.log "OmInput se Invoca"
     if @active
       @currentStreak = @combo.getCurrentStreak()
       play = false
