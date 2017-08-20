@@ -1,3 +1,12 @@
+## 0.3.0 - Beta Release 3
+* package-deps added
+* allow empty settings
+* enabled/disable observer
+* config-schema changed
+* file detection added
+* plugin details added
+
+
 ## 0.2.0 - Beta Release
 * new sound added `Maximun Combo.wav`
 * new sound added `Level Up.wav`
