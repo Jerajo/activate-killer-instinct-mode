@@ -22,13 +22,13 @@ module.exports =
     @typesObserver?.dispose()
     @typesObserver = atom.config.observe 'activate-killer-instinct-mode.customSettings.types', (value) =>
       @types = value
-      if @setup and @style is "killerInstinct" and @types != "both"
+      if @isSetup and @style is "killerInstinct" and @types != "both"
         @setConfig("comboMode.style", "custom")
 
     @displayObserver?.dispose()
     @displayObserver = atom.config.observe 'activate-killer-instinct-mode.customSettings.display', (value) =>
       @display = value
-      if @setup and @style is "killerInstinct" and @display is "duringStreak"
+      if @isSetup and @style is "killerInstinct" and @display is "duringStreak"
         @setConfig("comboMode.style", "custom")
 
     @pathObserver?.dispose()
@@ -36,7 +36,7 @@ module.exports =
       if value is "../sounds/"
         @path = path.join(__dirname, value)
       else @path = value
-      if @setup and @style is "killerInstinct" and value != "../sounds/"
+      if @isSetup and @style is "killerInstinct" and value != "../sounds/"
         @setConfig("comboMode.style", "custom")
 
       @refreshFiles()
@@ -47,7 +47,7 @@ module.exports =
     @styleObserver?.dispose()
     @styleObserver = atom.config.observe 'activate-killer-instinct-mode.comboMode.style', (value) =>
       @style = value
-      if @setup and @style is "killerInstinct"
+      if @isSetup and @style is "killerInstinct"
         @setConfig("comboMode.breakCombo", true) if not @breakCombo
         @setConfig("customExclamations.types", "both") if @types != "both"
         @setConfig("customExclamations.display", "endStreak") if @display != "endStreak"
@@ -77,7 +77,7 @@ module.exports =
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
         break if exits
-      console.error "File doesn't exits" if not exits and value != ""
+      console.error "File didn't found on: " + @path if not exits and value != ""
       @onDelete = if value != "" and exits then @path + value else null
 
     @onNextLevelObserver?.dispose()
@@ -86,7 +86,7 @@ module.exports =
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
         break if exits
-      console.error "File doesn't exits" if not exits and value != ""
+      console.error "File didn't found on: " + @path if not exits and value != ""
       @onNextLevel = if value != "" and exits then @path + value else null
 
     @onNewMaxObserver?.dispose()
@@ -95,7 +95,7 @@ module.exports =
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
         break if exits
-      console.error "File doesn't exits" if not exits and value != ""
+      console.error "File didn't found on: " + @path if not exits and value != ""
       @onNewMax = if value != "" and exits then @path + value else null
 
     @superExclamationObserver?.dispose()
@@ -104,7 +104,7 @@ module.exports =
       for file of @exclamations
         exits = if value is @exclamations[file] then true else false
         break if exits
-      console.error "File doesn't exits" if not exits and value != ""
+      console.error "File didn't found on: " + @path if not exits and value != ""
       @superExclamation = if value != "" and exits then @path + value else null
 
     @lapseObserver?.dispose()
