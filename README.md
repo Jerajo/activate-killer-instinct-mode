@@ -2,7 +2,7 @@
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fBr48lHVYJE?ecver=1" frameborder="0" allowfullscreen></iframe>
 
-#### This is an extension package for activate-power-mode that allow you to listen your favorite music while you are on Combo Mode.
+#### A plugin for activate-power-mode that plays killer instinct exclamations.
 
 ## Requirements
 
@@ -32,16 +32,16 @@ Or Settings ➔ Packages ➔ Search for `activate-killer-instinct-mode`
 * Combo Mode - Exclamation Volume
 * Combo Mode - Combo Breaker On Delete
 
-### Custom Settings
-* **Custom Exclamation - Type**
-* Custom Exclamation - Display
+### Custom Exclamations
+* **Custom Exclamations - Path To Exclamations**
+* Custom Exclamations - Exclamation Combo Breaker
+* Custom Exclamations - Exclamation Next Level
+* Custom Exclamations - Exclamation Level Up
+* Custom Exclamations - Exclamation Maximun Combo
 
-### Custom Audio Files
-* Custom Audio Files - Path To Exclamations
-* Custom Audio Files - Exclamation Combo Breaker
-* Custom Audio Files - Exclamation Next Level
-* Custom Audio Files - Exclamation Level Up
-* Custom Audio Files - Exclamation Maximun Combo
+### Custom Settings
+* **Custom Settings - Type**
+* **Custom Settings - Display**
 
 ### Super Exclamations
 * Super Exclamations - Lapse
