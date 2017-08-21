@@ -1,17 +1,17 @@
 {CompositeDisposable} = require "atom"
 
 configSchema = require "./config-schema"
-exclamationControler = require "./exclamation-controler"
+killerInstinct = require "./killer-instinct"
 
 module.exports = activateKillerInstinctMode =
 
   active: false
   config: configSchema
   subscriptions: null
-  exclamationControler: exclamationControler
+  killerInstinct: killerInstinct
 
   activate: (state) ->
-    @active = @isActive()
+    @active = @setConfig(true) if !@isActive()
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add "atom-workspace",
       "activate-killer-instinct-mode:toggle": => @toggle()
@@ -19,21 +19,19 @@ module.exports = activateKillerInstinctMode =
     require('atom-package-deps').install('activate-killer-instinct-mode')
 
   consumeActivatePowerModeServiceV1: (service) ->
-    service.registerPlugin('activateKillerInstinctMode', @exclamationControler)
+    service.registerPlugin('activateKillerInstinctMode', @killerInstinct)
 
   deactivate: ->
     @subscriptions?.dispose()
-    @active = false;
+    @active = @setConfig(false) if @isActive()
 
   toggle: ->
     if @isActive() then @disable() else @enable()
 
   enable: ->
-    console.log "Estoy activo. XD"
     @active = @setConfig(true)
 
   disable: ->
-    console.log "Estoy inactivo. XP"
     @active = @setConfig(false)
 
   isActive: ->
