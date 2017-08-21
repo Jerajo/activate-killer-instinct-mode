@@ -1,3 +1,9 @@
+## 0.4.0 - Beta Release 4
+* enabled/disable observer finished
+* added audio exclamations text
+* emty exclamation fixed
+* exclamation-controler changed to hiller-instint
+
 ## 0.3.0 - Beta Release 3
 * package-deps added
 * allow empty settings
@@ -12,7 +18,7 @@
 * new sound added `Level Up.wav`
 * config Observer finixed
 * config-schema finixed
-* now exclamations can be played
+* now exclamations can be play
 
 ## 0.1.0 - Setup Beta
 * config-schema added
