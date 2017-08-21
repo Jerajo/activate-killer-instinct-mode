@@ -38,13 +38,11 @@ module.exports =
       @setup(path) if @path != path
       if style is "killerInstinct"
         @exclamation = @killerInstinctExclamation(combo)
-        extencion = ".wav"
-        @sound = new Audio(@path + @exclamation + extencion)
+        @sound = new Audio(@path + @exclamation + ".wav")
       else
         @exclamation = @CustomExclamation()
         @sound = new Audio(@path + @exclamation)
-
-      @exclamation = @exclamation.substr(0, @exclamation.lastIndexOf('.'))
+        @exclamation = @exclamation.substr(0, @exclamation.lastIndexOf('.'))
 
     @sound.volume = @volume
     @isPlaying = true
