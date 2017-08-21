@@ -42,24 +42,24 @@ module.exports =
     if mod is 0 or play
       #atom.commands.dispatch "atom-workspace", "activate-background-music:play/pasue"
       exclamation = @exclamation.play(@configObserver.superExclamation, @configObserver.style)
-      @combo.exclame(word = exclamation, type = null)
+      @combo.exclame(word = exclamation, type = null) if @configObserver.types != "onlyAudio"
 
   onComboLevelChange: (newLvl, oldLvl) ->
     if @configObserver.types != "onlyText" and @configObserver.onNextLevel != null
       exclamation = @exclamation.play(@configObserver.onNextLevel, @configObserver.style)
-      @combo.exclame(word = exclamation, type = null)
+      @combo.exclame(word = exclamation, type = null) if @configObserver.types != "onlyAudio"
 
   onComboEndStreak: ->
     if @currentStreak >= 3 and @configObserver.display is "endStreak"
       if @configObserver.types != "onlyText"
         exclamation = @exclamation.play(@configObserver.path, @configObserver.style, @currentStreak)
-        @combo.exclame(word = exclamation, type = null)
+        @combo.exclame(word = exclamation, type = null) if @configObserver.types != "onlyAudio"
       @currentStreak = 0
 
   onComboExclamation: (text) ->
     if @configObserver.types != "onlyText" and @configObserver.display is "duringStreak"
       exclamation = @exclamation.play(@configObserver.path, @configObserver.style, 0) if @configObserver.types != "onlyText"
-      @combo.exclame(word = exclamation, type = null)
+      @combo.exclame(word = exclamation, type = null) if @configObserver.types != "onlyAudio"
 
   onComboMaxStreak: (maxStreak) ->
     if @configObserver.types != "onlyText" and @configObserver.onNewMax != null
