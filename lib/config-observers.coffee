@@ -18,6 +18,7 @@ module.exports =
   mute: true
   isSetup: false
   exclamations: null
+  timeLapse: 0
 
   setup: ->
     @typesObserver?.dispose()
@@ -135,6 +136,10 @@ module.exports =
         return @setConfig("superExclamation.mute", false)
       @mute = value
 
+    @timeLapseObserver?.dispose()
+    @timeLapseObserver = atom.config.observe "activate-power-mode.comboMode.streakTimeout", (value) =>
+      @timeLapse = (value * 1000) - 100
+
     @isSetup = true
 
   disable: ->
@@ -144,6 +149,7 @@ module.exports =
     @exclamationObserver?.dispose()
     @breakComboObserver?.dispose()
     @multiplierObserver?.dispose()
+    @timeLapseObserver?.dispose()
     @onDeleteObserver?.dispose()
     @onNewMaxObserver?.dispose()
     @displayObserver?.dispose()
