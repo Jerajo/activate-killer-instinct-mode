@@ -2,6 +2,7 @@
 
 configSchema = require "./config-schema"
 killerInstinct = require "./killer-instinct"
+comboBreaker = require "./combo-breaker"
 
 module.exports = activateKillerInstinctMode =
 
@@ -19,7 +20,8 @@ module.exports = activateKillerInstinctMode =
     require('atom-package-deps').install('activate-killer-instinct-mode')
 
   consumeActivatePowerModeServiceV1: (service) ->
-    service.registerPlugin('activateKillerInstinctMode', @killerInstinct)
+    service.registerPlugin('killerInstinctExclamations', @killerInstinct)
+    service.registerFlow('comboBreaker', comboBreaker);
 
   deactivate: ->
     @subscriptions?.dispose()
@@ -35,8 +37,8 @@ module.exports = activateKillerInstinctMode =
     @active = @setConfig(false)
 
   isActive: ->
-    atom.config.get "activate-power-mode.plugins.activateKillerInstinctMode"
+    atom.config.get "activate-power-mode.plugins.killerInstinctExclamations"
 
   setConfig: (value) ->
-    atom.config.set "activate-power-mode.plugins.activateKillerInstinctMode", value
+    atom.config.set "activate-power-mode.plugins.killerInstinctExclamations", value
     value
