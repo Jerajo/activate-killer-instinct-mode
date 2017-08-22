@@ -48,11 +48,17 @@ module.exports =
     @debounceEndStreakObserve() if @currentStreak > 0
     if @configObserver.types != "onlyText"
       if input.hasDeleted() and @configObserver.onDelete != null and @configObserver.breakCombo
-        return @combo.exclame(@comboBreaker())
+        eclamation = @comboBreaker()
+        @combo.exclame(eclamation) if @configObserver.types != "onlyAudio"
+        return
       if @configObserver.superExclamation != null and @checkExclamation(@configObserver.SELapse)
-        return @combo.exclame(@superExclamation())
+        eclamation = @superExclamation()
+        @combo.exclame(eclamation) if @configObserver.types != "onlyAudio"
+        return
       if @configObserver.display is "duringStreak" and @checkExclamation(@configObserver.ELapse)
-        return @combo.exclame(@exclamationDuringStreak())
+        eclamation = @exclamationDuringStreak()
+        @combo.exclame(eclamation) if @configObserver.types != "onlyAudio"
+
 
   exclamationDuringStreak: ->
     @exclamation.play(@configObserver.path, @configObserver.style)
@@ -84,7 +90,6 @@ module.exports =
     @streakEnds = false
     if @currentStreak >= 3 and @configObserver.display is "endStreak"
       if @configObserver.types != "onlyText"
-        console.log "Esto se inboca 3"
         exclamation = @exclamation.play(@configObserver.path, @configObserver.style, @currentStreak)
         @combo.exclame(exclamation) if @configObserver.types != "onlyAudio"
 
