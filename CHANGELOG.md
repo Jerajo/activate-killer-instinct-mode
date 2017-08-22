@@ -1,3 +1,7 @@
+## Patch 1.0.1
+* null exclamations when streak ends fixed
+* bouble exclamations when combo breaked fixed
+
 ## 1.0.0 First Full Release
 * mute music implemented
 * background-music detection

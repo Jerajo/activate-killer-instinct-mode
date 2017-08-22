@@ -1,5 +1,6 @@
 exclamation = require "./play-exclamation"
 configObserver = require './config-observers'
+debounce = require "lodash.debounce"
 
 module.exports =
 
@@ -13,6 +14,7 @@ module.exports =
   configObserver: configObserver
   isCombomode: false
   currentStreak: 0
+  streakEnds: false
 
   enable: (api) ->
     @api = api
@@ -20,12 +22,19 @@ module.exports =
     @setup()
 
   disable: ->
+    @debounceEndStreakObserve?.cancel()
+    @debounceEndStreakObserve = null
     @configObserver.disable()
     @exclamation.disable()
 
   setup: ->
     @configObserver.setup()
     @exclamation.enable @configObserver.path
+    @debounceEndStreakObserve?.cancel()
+    @debounceEndStreakObserve = debounce @checkStreak.bind(this), @configObserver.timeLapse
+
+  checkStreak: ->
+    @streakEnds = true
 
   onChangePane: (editor, editorElement) ->
     if atom.packages.isPackageDisabled("activate-background-music") and @configObserver.mute
@@ -35,8 +44,8 @@ module.exports =
       @setConfig "activate-power-mode.comboMode.multiplier", false
 
   onInput: (cursor, screenPosition, input, data) ->
-    console.log "onInput called"
     @currentStreak = @combo.getCurrentStreak()
+    @debounceEndStreakObserve() if @currentStreak > 0
     if @configObserver.types != "onlyText"
       if input.hasDeleted() and @configObserver.onDelete != null and @configObserver.breakCombo
         return @combo.exclame(@comboBreaker())
@@ -46,16 +55,13 @@ module.exports =
         return @combo.exclame(@exclamationDuringStreak())
 
   exclamationDuringStreak: ->
-    console.log "exclamationDuringStreak called"
     @exclamation.play(@configObserver.path, @configObserver.style)
 
   superExclamation: ->
-    console.log "superExclamation called"
     @exclamation.muteTogle(true) if @configObserver.mute
     @exclamation.play(@configObserver.superExclamation, @configObserver.style)
 
   comboBreaker: ->
-    console.log "comboBreaker called"
     @combo.resetCounter()
     @exclamation.play(@configObserver.onDelete, @configObserver.style)
 
@@ -73,9 +79,13 @@ module.exports =
       @combo.exclame(exclamation) if @configObserver.types != "onlyAudio"
 
   onComboEndStreak: ->
+    if !@streakEnds
+      return @debounceEndStreakObserve?.cancel()
+    @streakEnds = false
     if @currentStreak >= 3 and @configObserver.display is "endStreak"
       if @configObserver.types != "onlyText"
-        exclamation = @exclamation.play(@configObserver.path, @configObserver.style)
+        console.log "Esto se inboca 3"
+        exclamation = @exclamation.play(@configObserver.path, @configObserver.style, @currentStreak)
         @combo.exclame(exclamation) if @configObserver.types != "onlyAudio"
 
   onComboMaxStreak: (maxStreak) ->
