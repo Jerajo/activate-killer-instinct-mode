@@ -1,6 +1,6 @@
 # [Activate Killer Instinct Mode](https://github.com/Jerajo/activate-killer-instinct-mode)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/fBr48lHVYJE?ecver=1" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-3tOQhbyy48?ecver=1" frameborder="0" allowfullscreen></iframe>
 
 #### A plugin for activate-power-mode that plays killer instinct exclamations.
 
@@ -14,10 +14,8 @@ Needs Activate-Power-Mode package installed.
 
 - or activate by going `settings/packages/activate-killer-instinct-mode/enable`
 
-**IMPORTANT: When `Background Music` is enabled, music won't play until you reach the activation threshold on activate-power-mode settings.**
-
 ## Install
-
+1231231231231231
 With the atom package manager:
 ```bash
 apm install activate-killer-instinct-mode
@@ -29,15 +27,15 @@ Or Settings ➔ Packages ➔ Search for `activate-killer-instinct-mode`
 ### Combo Mode
 
 * **Combo Mode - Style**
-* Combo Mode - Exclamation Volume
 * Combo Mode - Combo Breaker On Delete
+* Combo Mode - Exclamation Volume
 
 ### Custom Exclamations
 * **Custom Exclamations - Path To Exclamations**
 * Custom Exclamations - Exclamation Combo Breaker
 * Custom Exclamations - Exclamation Next Level
 * Custom Exclamations - Exclamation Level Up
-* Custom Exclamations - Exclamation Maximun Combo
+* Custom Exclamations - Exclamation New Max
 
 ### Custom Settings
 * **Custom Settings - Type**
