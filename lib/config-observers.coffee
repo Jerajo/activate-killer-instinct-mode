@@ -21,6 +21,12 @@ module.exports =
   timeLapse: 0
 
   setup: ->
+    @activationThresholdObserver?.dispose()
+    @activationThresholdObserver = atom.config.observe 'activate-power-mode.comboMode.activationThreshold', (lapse) =>
+      if lapse[0] != "1"
+        lapse.unshift("1")
+        atom.config.set "activate-power-mode.comboMode.activationThreshold", lapse
+
     @typesObserver?.dispose()
     @typesObserver = atom.config.observe 'activate-killer-instinct-mode.customSettings.types', (value) =>
       @types = value
@@ -50,7 +56,7 @@ module.exports =
     @styleObserver = atom.config.observe 'activate-killer-instinct-mode.comboMode.style', (value) =>
       @style = value
       if @isSetup and @style is "killerInstinct"
-        @setConfig("comboMode.breakCombo", true) if not @breakCombo
+        #@setConfig("comboMode.breakCombo", true) if not @breakCombo
         @setConfig("customSettings.types", "both") if @types != "both"
         @setConfig("customSettings.display", "endStreak") if @display != "endStreak"
         @setConfig("customExclamations.path", "../sounds/") if @path != "../sounds/"
@@ -144,6 +150,7 @@ module.exports =
 
   disable: ->
     @isSetup = false
+    @activationThresholdObserver?.dispose()
     @superExclamationObserver?.dispose()
     @onNextLevelObserver?.dispose()
     @exclamationObserver?.dispose()
