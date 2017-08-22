@@ -15,8 +15,8 @@ module.exports =
         order: 1
 
       breakCombo:
-        title: "Combo Mode - Break Combo On Delete"
-        description: "Reset the current streak by pressing backspace."
+        title: "Combo Mode - Combo Breaker On Delete"
+        description: "Reset the current streak by pressing backspace. Note: the flow has to be Combo Breaker to apply this setting."
         type: "boolean"
         default: true
 
@@ -33,7 +33,7 @@ module.exports =
     type: "object"
     properties:
       types:
-        title: "Custom Settings - Type"
+        title: "Custom Settings - Exclamation Type"
         description: "Types of exclamations to be displayed."
         type: "string"
         default: "both"
@@ -45,7 +45,7 @@ module.exports =
         order: 1
 
       display:
-        title: "Custom Settings - Display"
+        title: "Custom Settings - Exclamation Display"
         description: "Set when exclamations will display."
         type: "string"
         default: "endStreak"
@@ -67,7 +67,7 @@ module.exports =
 
       onDelete:
         title: "Custom Exclamations - Combo Breaker"
-        description: 'File inside of path to exclamations to be played when combo breaks (leave it black to disable).'
+        description: 'File inside of path to exclamations to be played when combo breaks Note: combo breker needs to be enabled (leave it black to disable).'
         type: "string"
         default: ""
         order: 2
@@ -94,7 +94,7 @@ module.exports =
         description: "Lapse in streaks to display the super exclamation (leave in 0 to desable)."
         type: "integer"
         default: 1000
-        minimum: 0
+        minimum: 15
         maximum: 100000
         order: 1
 
