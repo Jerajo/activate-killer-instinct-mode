@@ -12,7 +12,8 @@ module.exports =
   onNextLevel: ""
   onNewMax: ""
   superExclamation: ""
-  lapse: 0
+  ELapse: 0
+  SELapse: 0
   multiplier: ""
   mute: true
   isSetup: false
@@ -49,8 +50,8 @@ module.exports =
       @style = value
       if @isSetup and @style is "killerInstinct"
         @setConfig("comboMode.breakCombo", true) if not @breakCombo
-        @setConfig("customExclamations.types", "both") if @types != "both"
-        @setConfig("customExclamations.display", "endStreak") if @display != "endStreak"
+        @setConfig("customSettings.types", "both") if @types != "both"
+        @setConfig("customSettings.display", "endStreak") if @display != "endStreak"
         @setConfig("customExclamations.path", "../sounds/") if @path != "../sounds/"
         if @onDelete != "Combo Breaker.wav"
           @setConfig("customExclamations.onDelete", "Combo Breaker.wav")
@@ -62,6 +63,10 @@ module.exports =
           @setConfig("superExclamation.path", "Yes oh my God.wav")
         if atom.packages.isPackageActive("activate-background-music") and not @mute
           @setConfig("superExclamation.mute", true)
+
+    @breakComboObserver?.dispose()
+    @breakComboObserver = atom.config.observe "activate-killer-instinct-mode.comboMode.breakCombo", (value) =>
+      @breakCombo = value
 
     @multiplierObserver?.dispose()
     @multiplierObserver = atom.config.observe "activate-power-mode.comboMode.multiplier", (value) =>
@@ -109,10 +114,25 @@ module.exports =
 
     @lapseObserver?.dispose()
     @lapseObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.lapse', (value) =>
-      @lapse = value
+      @SELapse = value
+
+    @exclamationObserver?.dispose()
+    @exclamationObserver = atom.config.observe 'activate-power-mode.comboMode.exclamationEvery', (value) =>
+      @ELapse = value
 
     @muteObserver?.dispose()
     @muteObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.mute', (value) =>
+      isIstalled = false
+      packages = atom.packages.getAvailablePackageNames()
+
+      for code, name of packages
+        if name is "activate-background-music"
+          isIstalled = true
+          break
+        else isIstalled = false
+
+      if (!isIstalled or atom.packages.isPackageDisabled("activate-background-music")) and value
+        return @setConfig("superExclamation.mute", false)
       @mute = value
 
     @isSetup = true
@@ -121,6 +141,8 @@ module.exports =
     @isSetup = false
     @superExclamationObserver?.dispose()
     @onNextLevelObserver?.dispose()
+    @exclamationObserver?.dispose()
+    @breakComboObserver?.dispose()
     @multiplierObserver?.dispose()
     @onDeleteObserver?.dispose()
     @onNewMaxObserver?.dispose()
