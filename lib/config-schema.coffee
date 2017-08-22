@@ -18,7 +18,8 @@ module.exports =
         title: "Combo Mode - Combo Breaker On Delete"
         description: "Reset the current streak by pressing backspace. Note: the flow has to be Combo Breaker to apply this setting."
         type: "boolean"
-        default: true
+        default: false
+        order: 2
 
       volume:
         title: "Combo Mode - Exclamation Volume"
@@ -27,7 +28,6 @@ module.exports =
         default: 50
         minimum: 0
         maximum: 100
-        order: 2
 
   customSettings:
     type: "object"
