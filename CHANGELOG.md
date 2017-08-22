@@ -1,6 +1,14 @@
+## Patch 1.0.2
+* combo breaker default false
+* exclamation texts displayed on "only Audio" fixed
+* exclamation texts didn't display on "only Text" fixed
+* activation threshold observer added
+* activation threshold set to 1
+* YouTube video changed
+
 ## Patch 1.0.1
 * null exclamations when streak ends fixed
-* bouble exclamations when combo breaked fixed
+* double exclamations when combo broke fixed
 
 ## 1.0.0 First Full Release
 * mute music implemented
@@ -12,8 +20,8 @@
 ## 0.4.0 - Beta Release 4
 * enabled/disable observer finished
 * added audio exclamations text
-* emty exclamation fixed
-* exclamation-controler changed to hiller-instint
+* empty exclamation fixed
+* exclamation-controller changed to killer-instinct
 
 ## 0.3.0 - Beta Release 3
 * package-deps added
@@ -25,17 +33,17 @@
 
 
 ## 0.2.0 - Beta Release
-* new sound added `Maximun Combo.wav`
+* new sound added `Maximum Combo.wav`
 * new sound added `Level Up.wav`
-* config Observer finixed
-* config-schema finixed
+* config Observer finished
+* config-schema finished
 * now exclamations can be play
 
 ## 0.1.0 - Setup Beta
 * config-schema added
 * sounds added
 * play-exclamation added
-* exclamation-controler added
+* exclamation-controller added
 * package-deps activate-power-mode added
 
 ## 0.0.1 - Beta Release
