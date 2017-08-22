@@ -1,3 +1,10 @@
+## 1.0.0 First Full Release
+* mute music implemented
+* background-music detection
+* combo-breaker flow added
+* combo-breaker settings added
+* exclamation combo-breaker implemented
+
 ## 0.4.0 - Beta Release 4
 * enabled/disable observer finished
 * added audio exclamations text
