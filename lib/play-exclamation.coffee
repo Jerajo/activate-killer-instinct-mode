@@ -7,6 +7,7 @@ module.exports =
   volume: 0
   isPlaying: false
   audioFiles: null
+  musicMute: false
 
   enable: (path) ->
     @path = path
@@ -40,15 +41,18 @@ module.exports =
         @exclamation = @killerInstinctExclamation(combo)
         @sound = new Audio(@path + @exclamation + ".wav")
       else
-        @exclamation = @CustomExclamation()
+        @exclamation = @customExclamation()
         @sound = new Audio(@path + @exclamation)
         @exclamation = @exclamation.substr(0, @exclamation.lastIndexOf('.'))
 
     @sound.volume = @volume
     @isPlaying = true
     @sound.play()
+
     @sound.onended = =>
       @isPlaying = false
+      @muteTogle() if @musicMute
+
     return (@exclamation + "!")
 
   getAudioFiles: ->
@@ -67,7 +71,7 @@ module.exports =
 
     allFiles
 
-  CustomExclamation: ->
+  customExclamation: ->
     maxIndex = @audioFiles.length - 1
     minIndex = 0
     randomIndex = Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex)
@@ -86,3 +90,9 @@ module.exports =
     return fileName = ("Killer Combo") if combo > 26 and combo < 30
     return fileName = ("Ultra Combo") if combo >= 30
     null
+
+  muteTogle: (mute = false) ->
+    @musicMute = mute
+    target = atom.views.getView atom.workspace
+    commandName = "activate-background-music:mute-toggle"
+    atom.commands.dispatch target, commandName
