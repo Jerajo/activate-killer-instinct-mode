@@ -56,7 +56,7 @@ module.exports =
     @styleObserver = atom.config.observe 'activate-killer-instinct-mode.comboMode.style', (value) =>
       @style = value
       if @isSetup and @style is "killerInstinct"
-        #@setConfig("comboMode.breakCombo", true) if not @breakCombo
+        @setConfig("comboMode.breakCombo", true) if not @breakCombo
         @setConfig("customSettings.types", "both") if @types != "both"
         @setConfig("customSettings.display", "endStreak") if @display != "endStreak"
         @setConfig("customExclamations.path", "../sounds/") if @path != "../sounds/"
@@ -74,6 +74,17 @@ module.exports =
     @breakComboObserver?.dispose()
     @breakComboObserver = atom.config.observe "activate-killer-instinct-mode.comboMode.breakCombo", (value) =>
       @breakCombo = value
+      if @breakCombo
+        atom.config.set "activate-power-mode.flow", "comboBreaker"
+      else
+        atom.config.set "activate-power-mode.flow", "default"
+
+    @flowObserver?.dispose()
+    @flowObserver = atom.config.observe "activate-power-mode.flow", (value) =>
+      if value is "comboBreaker"
+        atom.config.set "activate-killer-instinct-mode.comboMode.breakCombo", true
+      else
+        atom.config.set "activate-killer-instinct-mode.comboMode.breakCombo", false
 
     @multiplierObserver?.dispose()
     @multiplierObserver = atom.config.observe "activate-power-mode.comboMode.multiplier", (value) =>
@@ -164,6 +175,7 @@ module.exports =
     @styleObserver?.dispose()
     @typesObserver?.dispose()
     @lapseObserver?.dispose()
+    @flowObserver?.dispose()
     @pathObserver?.dispose()
     @muteObserver?.dispose()
 
