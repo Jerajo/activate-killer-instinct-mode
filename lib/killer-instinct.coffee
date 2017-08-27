@@ -74,7 +74,7 @@ module.exports =
     @exclamation.play(@configObserver.onDelete, @configObserver.types)
 
   checkExclamation: (lapse) ->
-    return false if @currentStreak is 0
+    return false if @currentStreak is 0 or lapse is 0
     return true if (mod = @currentStreak % lapse) is 0
     return false if !@configObserver.multiplier
     currentLevel = @combo.getLevel()
