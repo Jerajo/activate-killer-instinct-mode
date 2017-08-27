@@ -130,13 +130,18 @@ module.exports =
       console.error "File didn't found on: " + @path if not exits and value != ""
       @superExclamation = if value != "" and exits then @path + value else null
 
-    @lapseObserver?.dispose()
-    @lapseObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.lapse', (value) =>
+    @ElapseObserver?.dispose()
+    @ElapseObserver = atom.config.observe 'activate-killer-instinct-mode.comboMode.lapse', (value) =>
+      @ELapse = value
+
+    @SElapseObserver?.dispose()
+    @SElapseObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.lapse', (value) =>
       @SELapse = value
 
     @exclamationObserver?.dispose()
     @exclamationObserver = atom.config.observe 'activate-power-mode.comboMode.exclamationEvery', (value) =>
-      @ELapse = value
+      if value != 0
+        atom.config.set "activate-power-mode.comboMode.exclamationEvery", 0
 
     @muteObserver?.dispose()
     @muteObserver = atom.config.observe 'activate-killer-instinct-mode.superExclamation.mute', (value) =>
@@ -161,6 +166,7 @@ module.exports =
 
   disable: ->
     @isSetup = false
+    atom.config.set "activate-power-mode.flow", "default" if @breakCombo
     @activationThresholdObserver?.dispose()
     @superExclamationObserver?.dispose()
     @onNextLevelObserver?.dispose()
@@ -170,11 +176,12 @@ module.exports =
     @timeLapseObserver?.dispose()
     @onDeleteObserver?.dispose()
     @onNewMaxObserver?.dispose()
+    @SElapseObserver?.dispose()
     @displayObserver?.dispose()
     @volumeObserver?.dispose()
+    @ElapseObserver?.dispose()
     @styleObserver?.dispose()
     @typesObserver?.dispose()
-    @lapseObserver?.dispose()
     @flowObserver?.dispose()
     @pathObserver?.dispose()
     @muteObserver?.dispose()
