@@ -1,4 +1,4 @@
-## Release 1.2.0
+## Release 1.1.0
 * Exclamation lapse added
 * Exclamations won't display on exclamation lapse 0
 * `exclamationEvery` Observer added
