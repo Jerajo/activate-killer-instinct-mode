@@ -1,3 +1,11 @@
+## Release 1.2.0
+* Exclamation lapse added
+* Exclamations won't display on exclamation lapse 0
+* `exclamationEvery` Observer added
+* Flow observer added
+* Flow changes to `comboBreaker` on Enable
+* Flow changes to default on disable
+
 ## Patch 1.0.2
 * combo breaker default false
 * exclamation texts displayed on "only Audio" fixed
