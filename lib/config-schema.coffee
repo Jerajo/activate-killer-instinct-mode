@@ -21,6 +21,15 @@ module.exports =
         default: false
         order: 2
 
+      lapse:
+        title: "Exclamation - Display Lapse"
+        description: "Lapse in streaks to display the exclamations (Let in 0 to desable)."
+        type: "integer"
+        default: 10
+        minimum: 0
+        maximum: 100000
+        order: 1
+
       volume:
         title: "Combo Mode - Exclamation Volume"
         description: "Volume for exclamation sounds."
@@ -90,11 +99,11 @@ module.exports =
     type: "object"
     properties:
       lapse:
-        title: "Super Exclamation - play Lapse"
-        description: "Lapse in streaks to display the super exclamation (leave in 0 to desable)."
+        title: "Super Exclamation - Display Lapse"
+        description: "Lapse in streaks to display the super exclamation (Let in 0 to desable)."
         type: "integer"
-        default: 1000
-        minimum: 15
+        default: 100
+        minimum: 0
         maximum: 100000
         order: 1
 
