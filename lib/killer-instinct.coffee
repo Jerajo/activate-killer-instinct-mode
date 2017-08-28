@@ -11,7 +11,7 @@ module.exports =
   api: null
   combo: null
   exclamation: exclamation
-  configObserver: configObserver
+  observer: configObserver
   isCombomode: false
   currentStreak: 0
   streakEnds: false
@@ -24,80 +24,82 @@ module.exports =
   disable: ->
     @debounceEndStreakObserve?.cancel()
     @debounceEndStreakObserve = null
-    @configObserver.disable()
+    @observer.disable()
     @exclamation.disable()
 
   setup: ->
-    @configObserver.setup()
-    @exclamation.enable @configObserver.path
+    @observer.setup()
+    @exclamation.enable @observer.conf['path']
     @debounceEndStreakObserve?.cancel()
-    @debounceEndStreakObserve = debounce @checkStreak.bind(this), @configObserver.timeLapse
+    @debounceEndStreakObserve = debounce @checkStreak.bind(this), @observer.conf['timeLapse']
 
   checkStreak: ->
     @streakEnds = true
 
   onChangePane: (editor, editorElement) ->
-    if atom.packages.isPackageDisabled("activate-background-music") and @configObserver.mute
-      @configObserver.mute = false
+    if atom.packages.isPackageDisabled("activate-background-music") and @observer.conf['mute']
+      @observer.conf['mute'] = false
 
-    if @configObserver.style is "killerInstinct" and @configObserver.multiplier
+    if @observer.conf['style'] is "killerInstinct" and @observer.conf['multiplier']
       @setConfig "activate-power-mode.comboMode.multiplier", false
 
   onInput: (cursor, screenPosition, input, data) ->
     @currentStreak = @combo.getCurrentStreak()
     @debounceEndStreakObserve() if @currentStreak > 0
-    if input.hasDeleted() and @configObserver.onDelete != null and @configObserver.breakCombo
-      return @combo.exclame("Combo Breaker!") if @configObserver.types is "onlyText"
+
+    if input.hasDeleted() and @observer.conf['onDelete'] != null and @observer.conf['breakCombo']
+      return @combo.exclame("Combo Breaker!") if @observer.conf['types'] is "onlyText"
       eclamation = @comboBreaker()
-      @combo.exclame(eclamation) if @configObserver.types != "onlyAudio"
+      @combo.exclame(eclamation) if @observer.conf['types'] != "onlyAudio"
       return
-    if @configObserver.superExclamation != null and @checkExclamation(@configObserver.SELapse)
-      return @combo.exclame("Yes oh my God!") if @configObserver.types is "onlyText"
+
+    if @observer.conf['superExclamation'] != null and @checkExclamation(@observer.conf['SELapse'])
+      return @combo.exclame("Yes oh my God!") if @observer.conf['types'] is "onlyText"
       eclamation = @superExclamation()
-      @combo.exclame(eclamation) if @configObserver.types != "onlyAudio"
+      @combo.exclame(eclamation) if @observer.conf['types'] != "onlyAudio"
       return
-    if @configObserver.display is "duringStreak" and @checkExclamation(@configObserver.ELapse)
-      return if @configObserver.types != "onlyAudio"
+
+    if @observer.conf['display'] is "duringStreak" and @checkExclamation(@observer.conf['ELapse'])
       eclamation = @exclamationDuringStreak()
-      @combo.exclame(eclamation) if @configObserver.types != "onlyAudio"
+      @combo.exclame(eclamation) if @observer.conf['types'] != "onlyAudio"
 
 
   exclamationDuringStreak: ->
-    @exclamation.play(@configObserver.path, @configObserver.types)
+    @exclamation.play(@observer.conf['path'], @observer.conf)
 
   superExclamation: ->
-    @exclamation.muteTogle(true) if @configObserver.mute
-    @exclamation.play(@configObserver.superExclamation, @configObserver.types)
+    @exclamation.muteTogle(true) if @observer.conf['mute']
+    @exclamation.play(@observer.conf['superExclamation'], @observer.conf)
 
   comboBreaker: ->
     @combo.resetCounter()
-    @exclamation.play(@configObserver.onDelete, @configObserver.types)
+    @exclamation.play(@observer.conf['onDelete'], @observer.conf)
 
   checkExclamation: (lapse) ->
     return false if @currentStreak is 0 or lapse is 0
     return true if (mod = @currentStreak % lapse) is 0
-    return false if !@configObserver.multiplier
+    return false if !@observer.conf['multiplier']
     currentLevel = @combo.getLevel()
     n = currentLevel + 1
     return if (@currentStreak - n < @currentStreak - mod < @currentStreak) then true else false
 
   onComboLevelChange: (newLvl, oldLvl) ->
-    if @configObserver.onNextLevel != null
-      return @combo.exclame("Level Up!") if @configObserver.types is "onlyText"
-      exclamation = @exclamation.play(@configObserver.onNextLevel, @configObserver.types)
-      @combo.exclame(exclamation) if @configObserver.types != "onlyAudio"
+    if @observer.conf['onNextLevel'] != null
+      return @combo.exclame("Level Up!") if @observer.conf['types'] is "onlyText"
+      exclamation = @exclamation.play(@observer.conf['onNextLevel'], @observer.conf)
+      @combo.exclame(exclamation) if @observer.conf['types'] != "onlyAudio"
 
   onComboEndStreak: ->
     if !@streakEnds
       return @debounceEndStreakObserve?.cancel()
     @streakEnds = false
-    if @currentStreak >= 3 and @configObserver.display is "endStreak"
-      exclamation = @exclamation.play(@configObserver.path, @configObserver.types, @currentStreak)
-      @combo.exclame(exclamation) if @configObserver.types != "onlyAudio"
+    if @currentStreak >= 3 and @observer.conf['display'] is "endStreak"
+      exclamation = @exclamation.play(@observer.conf['path'], @observer.conf, @currentStreak)
+      @combo.exclame(exclamation) if @observer.conf['types'] != "onlyAudio"
 
   onComboMaxStreak: (maxStreak) ->
-    if @configObserver.types != "onlyText" and @configObserver.onNewMax != null
-      @exclamation.play(@configObserver.onNewMax, @configObserver.types)
+    if @observer.conf['types'] != "onlyText" and @observer.conf['onNewMax'] != null
+      @exclamation.play(@observer.conf['onNewMax'], @observer.conf)
 
   setConfig: (config, value) ->
     atom.config.set config, value
