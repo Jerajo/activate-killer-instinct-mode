@@ -15,7 +15,7 @@ Needs Activate-Power-Mode package installed.
 - or activate by going `settings/packages/activate-killer-instinct-mode/enable`
 
 ## Install
-1231231231231231
+
 With the atom package manager:
 ```bash
 apm install activate-killer-instinct-mode
