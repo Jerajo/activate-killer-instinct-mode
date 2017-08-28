@@ -41,9 +41,6 @@ module.exports =
         @setConfig("customExclamations.onNewMax", "")
         @setConfig("superExclamation.path", "")
 
-      console.log "El path es: "
-      console.log @conf['path']
-
       if @isSetup and @conf['style'] is "killerInstinct" and value != "../sounds/"
         @setConfig("comboMode.style", "custom")
 
