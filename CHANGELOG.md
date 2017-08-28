@@ -1,3 +1,7 @@
+## Patch 1.1.1
+* `ConfigObserver` Reduced
+* Custom exclamation didn't display fixed
+
 ## Release 1.1.0
 * Exclamation lapse added
 * Exclamations won't display on exclamation lapse 0
