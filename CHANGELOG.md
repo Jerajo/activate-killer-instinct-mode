@@ -1,3 +1,8 @@
+## Patch 1.1.2
+* exclamation value `null` changed to `[]`
+* unused variable `isCombomode` deleted
+* syntax updated
+
 ## Patch 1.1.1
 * `ConfigObserver` Reduced
 * Custom exclamation didn't display fixed
