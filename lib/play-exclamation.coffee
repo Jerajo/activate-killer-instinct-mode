@@ -29,14 +29,14 @@ module.exports =
     @path = ""
 
   play: (path = "", config, combo = -1) ->
-    ispath = if path.length - 1 == path.lastIndexOf('\\') then true else false
-    if not ispath
+    ispath = if path.length - 1 == path.lastIndexOf('\\') then yes else no
+    unless ispath
       start = path.lastIndexOf('\\') + 1;
       end = path.lastIndexOf('.') - start;
       @exclamation = path.substr(start, end);
       @sound = new Audio(path)
     else
-      @setup(path) if @path != path
+      @setup(path) if @path isnt path
       if combo >= 3 and config['style'] is 'killerInstinct'
         @exclamation = @killerInstinctExclamation(combo)
       else
@@ -46,7 +46,7 @@ module.exports =
     return (@exclamation + "!") if config['types'] is "onlyText"
     @sound = new Audio(@path + @exclamation + ".wav")
     @sound.volume = @volume
-    @isPlaying = true
+    @isPlaying = yes
     @sound.play()
 
     @sound.onended = =>

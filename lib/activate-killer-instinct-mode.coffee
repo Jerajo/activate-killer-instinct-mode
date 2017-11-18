@@ -6,13 +6,13 @@ comboBreaker = require "./combo-breaker"
 
 module.exports = activateKillerInstinctMode =
 
-  active: false
+  active: off
   config: configSchema
   subscriptions: null
   killerInstinct: killerInstinct
 
   activate: (state) ->
-    @active = @setConfig(true) if !@isActive()
+    @active = @setConfig(on) unless @isActive()
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add "atom-workspace",
       "activate-killer-instinct-mode:toggle": => @toggle()
@@ -25,16 +25,16 @@ module.exports = activateKillerInstinctMode =
 
   deactivate: ->
     @subscriptions?.dispose()
-    @active = @setConfig(false) if @isActive()
+    @active = @setConfig(off) if @isActive()
 
   toggle: ->
     if @isActive() then @disable() else @enable()
 
   enable: ->
-    @active = @setConfig(true)
+    @active = @setConfig(on)
 
   disable: ->
-    @active = @setConfig(false)
+    @active = @setConfig(off)
 
   isActive: ->
     atom.config.get "activate-power-mode.plugins.killerInstinctExclamations"

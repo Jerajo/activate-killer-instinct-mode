@@ -11,4 +11,4 @@ module.exports =
       switcher.on('comboMode')
 
     if input.hasDeleted() and atom.config.get "activate-killer-instinct-mode.comboMode.breakCombo"
-      switcher.on('comboMode', {'reset': true})
+      switcher.on('comboMode', {'reset': yes})
