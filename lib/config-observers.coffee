@@ -4,6 +4,7 @@ fs = require 'fs'
 module.exports =
   conf: []
   isSetup: no
+  messages: null
   exclamations: []
 
   setup: ->
@@ -44,7 +45,7 @@ module.exports =
 
       @refreshFiles()
       if @exclamations is null
-        console.error  "Error!: The folder doesn't exist or doesn't contain audio files!."
+        @atomWarning "The folder doesn't exist or doesn't contain audio files!.", "Path: `#{@conf['path']}`", true
         @setConfig("customExclamations.path","../sounds/")
 
     @styleObserver?.dispose()
@@ -95,7 +96,7 @@ module.exports =
       for file of @exclamations
         exits = if value is @exclamations[file] then yes else no
         break if exits
-      console.error "File didn't found on: " + @conf['path'] if not exits and value isnt ""
+      @atomWarning "File didn't found!.", "Path: #{@conf['path']}", true if not exits and value isnt ""
       @conf['onDelete'] = if value isnt "" and exits then @conf['path'] + value else null
 
     @onNextLevelObserver?.dispose()
@@ -104,7 +105,7 @@ module.exports =
       for file of @exclamations
         exits = if value is @exclamations[file] then yes else no
         break if exits
-      console.error "File didn't found on: " + @conf['path'] if not exits and value isnt ""
+      @atomWarning "File didn't found!.", "Path: #{@conf['path']}", true if not exits and value isnt ""
       @conf['onNextLevel'] = if value isnt "" and exits then @conf['path'] + value else null
 
     @onNewMaxObserver?.dispose()
@@ -113,7 +114,7 @@ module.exports =
       for file of @exclamations
         exits = if value is @exclamations[file] then yes else no
         break if exits
-      console.error "File didn't found on: " + @conf['path'] if not exits and value isnt ""
+      @atomWarning "File didn't found!.", "Path: #{@conf['path']}", true if not exits and value isnt ""
       @conf['onNewMax'] = if value isnt "" and exits then @conf['path'] + value else null
 
     @superExclamationObserver?.dispose()
@@ -122,7 +123,7 @@ module.exports =
       for file of @exclamations
         exits = if value is @exclamations[file] then yes else no
         break if exits
-      console.error "File didn't found on: " + @conf['path'] if not exits and value isnt ""
+      @atomWarning "File didn't found!.", "Path: #{@conf['path']}", true if not exits and value isnt ""
       @conf['superExclamation'] = if value isnt "" and exits then @conf['path'] + value else null
 
     @ElapseObserver?.dispose()
@@ -179,8 +180,9 @@ module.exports =
     @flowObserver?.dispose()
     @pathObserver?.dispose()
     @muteObserver?.dispose()
-    exclamations: []
-    conf: []
+    @exclamations = []
+    @messages = null
+    @conf = []
 
   refreshFiles: ->
     @exclamations = if fs.existsSync(@conf['path']) then @getAudioFiles() else null
@@ -203,3 +205,6 @@ module.exports =
 
   setConfig: (config, value) ->
     atom.config.set "activate-killer-instinct-mode.#{config}", value
+
+  atomWarning: (message, detail, dismisable) ->
+    atom.notifications.addWarning message, { detail: detail, dismisable: dismisable }
