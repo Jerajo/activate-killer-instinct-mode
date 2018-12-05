@@ -31,9 +31,7 @@ module.exports =
         @conf['path'] = path.join(__dirname, value)
       else
         if value[value.length-1] isnt '/' and value[value.length-1] isnt '\\'
-          @conf['path'] = value + '\\'
-        else if value[value.length-1] is '/'
-          @conf['path'] = value.replace('/','\\')
+          @conf['path'] = path.join(value, '/')
         else @conf['path'] = value
 
         @setConfig("customExclamations.onDelete", "")
@@ -45,7 +43,7 @@ module.exports =
         @setConfig("comboMode.style", "custom")
 
       @refreshFiles()
-      if @conf['exclamations'] is null
+      if @exclamations is null
         console.error  "Error!: The folder doesn't exist or doesn't contain audio files!."
         @setConfig("customExclamations.path","../sounds/")
 

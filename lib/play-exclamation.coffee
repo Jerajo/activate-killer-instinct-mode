@@ -29,7 +29,7 @@ module.exports =
     @path = ""
 
   play: (path = "", config, combo = -1) ->
-    ispath = if path.length - 1 == path.lastIndexOf('\\') then yes else no
+    ispath = if path.length - 1 is path.lastIndexOf('\\') or path.length - 1 is path.lastIndexOf('/') then yes else no
     unless ispath
       start = path.lastIndexOf('\\') + 1;
       end = path.lastIndexOf('.') - start;
