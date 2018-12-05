@@ -69,28 +69,28 @@ module.exports =
     properties:
       path:
         title: "Custom Exclamations - Path"
-        description: 'Path to exclamations audio files (Plays ramdomised).'
+        description: 'Path to exclamations audio files (Plays ramdomised). Copy and paste the full path.'
         type: "string"
         default: "../sounds/"
         order: 1
 
       onDelete:
         title: "Custom Exclamations - Combo Breaker"
-        description: 'File inside of path to exclamations to be played when combo breaks Note: combo breker needs to be enabled (leave it black to disable).'
+        description: 'File inside of path to exclamations. Copy and paste the file name with his extension. (Leave it blank to desable it)'
         type: "string"
         default: ""
         order: 2
 
       onNextLevel:
         title: "Custom Exclamations - Next Level"
-        description: 'File inside of path to exclamations to be played when level up (leave in black to disable).'
+        description: 'File inside of path to exclamations. Copy and paste the file name with his extension. (Leave it blank to desable it)'
         type: "string"
         default: ""
         order: 3
 
       onNewMax:
         title: "Custom Exclamations - New Max"
-        description: 'File inside of path to exclamations to be played when reach a new max (leave in black to disable).'
+        description: 'File inside of path to exclamations. Copy and paste the file name with his extension. (Leave it blank to desable it)'
         type: "string"
         default: ""
         order: 4
@@ -109,7 +109,7 @@ module.exports =
 
       path:
         title: "Super Exclamation - Path"
-        description: 'File inside of path to exclamations to be played when current streak reaches the play lapse.'
+        description: 'File inside of path to exclamations to be played when current streak reaches the display lapse. Copy and paste the file name with his extension.'
         type: "string"
         default: "Yes oh my God.wav"
         order: 2
