@@ -1,6 +1,6 @@
 # [Activate Killer Instinct Mode](https://github.com/Jerajo/activate-killer-instinct-mode)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-3tOQhbyy48?ecver=1" frameborder="0" allowfullscreen></iframe>
+[![Imgur](https://i.imgur.com/u9UIoAT.gif)](https://www.youtube.com/watch?v=-3tOQhbyy48)
 
 #### A plugin for activate-power-mode that plays killer instinct exclamations.
 
@@ -26,6 +26,7 @@ Or Settings ➔ Packages ➔ Search for `activate-killer-instinct-mode`
 
 ### Combo Mode
 
+* **Combo Mode - Display Lapse**
 * **Combo Mode - Style**
 * Combo Mode - Combo Breaker On Delete
 * Combo Mode - Exclamation Volume
@@ -38,10 +39,10 @@ Or Settings ➔ Packages ➔ Search for `activate-killer-instinct-mode`
 * Custom Exclamations - Exclamation New Max
 
 ### Custom Settings
-* **Custom Settings - Type**
-* **Custom Settings - Display**
+* **Custom Settings - Exclamation Type**
+* **Custom Settings - Exclamation Display**
 
 ### Super Exclamations
-* Super Exclamations - Lapse
+* Super Exclamations - Display Lapse
 * Super Exclamations - Path
-* Super Exclamations - Mute
+* Super Exclamations - Mute Enabled
